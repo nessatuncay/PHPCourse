@@ -5,20 +5,18 @@
     - Repetition will become a problem
 
     How can we refactor this code so it’s easier to maintain?
+
+
+    My comment: I learned that breaking a page into different components and giving them their own files makes it
+    easier to keep everything organized. Putting all of them in one file can make it too big and hard to go through. I'll be 
+    breaking down the page areas in my project to keep things clean and manageable
 */
 
 $items = ["Home", "About", "Contact"];
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My PHP Page</title>
-</head>
-<body>
-
-<h1>Welcome</h1>
+<?php require 'includes/header.php'; ?>
 
 <ul>
 <?php foreach ($items as $item): ?>
@@ -26,9 +24,6 @@ $items = ["Home", "About", "Contact"];
 <?php endforeach; ?>
 </ul>
 
-<footer>
-    <p>&copy; 2026</p>
-</footer>
+<?php require 'includes/footer.php'; ?>
 
-</body>
-</html>
+
