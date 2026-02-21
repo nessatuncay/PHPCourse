@@ -1,0 +1,9 @@
+CREATE TABLE tasks
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task_name VARCHAR(200) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    due_date VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    time_spent INT NOT NULL
+);
