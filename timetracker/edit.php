@@ -46,3 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 exit;
             }
     }
+
+
+
+    /*this loads the data that is already there */
+    $sql = "SELECT * FROM, tasks WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $taskId);
+    $stmt->execute();
+
+    $task = $stmt->fetch();
+
+    if (!$task)
+        {
+            die("Tasks has not been found");
+        }
+?>
