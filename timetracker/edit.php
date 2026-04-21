@@ -76,8 +76,31 @@ if (!$task) {
             value="<?= htmlspecialchars($task['task_name']); ?>"
             required>
 
-        <label class="form-label">Priority</label>
-       
+        <label class="form-label">Category/Priority</label>
+        <select name="category" class="form-control mb-3" required>
+            <option value="High" <?= $task['category'] === 'High' ? 'selected' : '' ?>>High</option>
+            <option value="Medium" <?= $task['category'] === 'Medium' ? 'selected' : '' ?>>Medium</option>
+            <option value="Low" <?= $task['category'] === 'Low' ? 'selected' : '' ?>>Low</option>
+        </select>
+
+        <label class="form-label">Due Date</label>
+        <input
+            type="text"
+            name="due_date"
+            class="form-control mb-3"
+            value="<?= htmlspecialchars($task['due_date']); ?>"
+            required>
+
+        <label class="form-label">How Much Time Spent</label>
+        <input
+            type="number"
+            name="time_spent"
+            class="form-control mb-4"
+            min="0"
+            value="<?= (int)$task['time_spent']; ?>">
+
+        <button class="btn btn-primary">Update Changes</button>
+        <a href="viewtasks.php" class="btn btn-secondary">Cancel</a>
 
 
 
