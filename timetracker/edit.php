@@ -3,62 +3,95 @@
 require "connect.php";
 
 
-/*this makes sure that it can get the id*/ 
-if (!isset($_GET['id']))
-    {
-        die("There is no task id");
-    }
+/*this makes sure that it can get the id*/
+if (!isset($_GET['id'])) {
+    die("There is no task id");
+}
 
 $taskId = $_GET['id'];
 
-/*this makes sure that if the form is submitted then the row will be updated*/ 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        /*this is to sanitize the data */
-        $taskName  = trim($_POST['task_name'] ?? '');
-        $category  = trim($_POST['category'] ?? '');
-        $dueDate   = trim($_POST['due_date'] ?? '');
-        $timeSpent = (int)($_POST['time_spent'] ?? 0);
+/*this makes sure that if the form is submitted then the row will be updated*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    /*this is to sanitize the data */
+    $taskName  = trim($_POST['task_name'] ?? '');
+    $category  = trim($_POST['category'] ?? '');
+    $dueDate   = trim($_POST['due_date'] ?? '');
+    $timeSpent = (int)($_POST['time_spent'] ?? 0);
 
 
-        /*this is validating the info in a simple */
-        if ($taskName === '' || $category === '' || $dueDate === '')
-            {
-                /*if task name, category and due date is emoty then it gives this error */
-                $error = "The task name, category and due date is required";
-            }
-        else
-            {
-                /*this updates the data in the database */
-                $sql = "UPDATE tasks SET task_name = :task_name, category = :category, due date = :due_date, time_spent = :time_spent WHERE id = :id";
+    /*this is validating the info in a simple */
+    if ($taskName === '' || $category === '' || $dueDate === '') {
+        /*if task name, category and due date is emoty then it gives this error */
+        $error = "The task name, category and due date is required";
+    } else {
+        /*this updates the data in the database */
+        $sql = "UPDATE tasks SET task_name = :task_name, category = :category, due date = :due_date, time_spent = :time_spent WHERE id = :id";
 
-                $stmt = $pdo->prepare($sql);
+        $stmt = $pdo->prepare($sql);
 
-                /*this binds the parameters*/
-                $stmt->bindParam(':task_name', $taskName);
-                $stmt->bindParam(':category', $category);
-                $stmt->bindParam(':due_date', $dueDate);
-                $stmt->bindParam(':time_spent', $timeSpent);
-                $stmt->bindParam(':id', $taskId);
+        /*this binds the parameters*/
+        $stmt->bindParam(':task_name', $taskName);
+        $stmt->bindParam(':category', $category);
+        $stmt->bindParam(':due_date', $dueDate);
+        $stmt->bindParam(':time_spent', $timeSpent);
+        $stmt->bindParam(':id', $taskId);
 
-                $stmt->execute();
+        $stmt->execute();
 
-                exit;
-            }
+        exit;
     }
+}
 
 
 
-    /*this loads the data that is already there */
-    $sql = "SELECT * FROM, tasks WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id', $taskId);
-    $stmt->execute();
+/*this loads the data that is already there */
+$sql = "SELECT * FROM, tasks WHERE id = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':id', $taskId);
+$stmt->execute();
 
-    $task = $stmt->fetch();
+$task = $stmt->fetch();
 
-    if (!$task)
-        {
-            die("Tasks has not been found");
-        }
+if (!$task) {
+    die("Tasks has not been found");
+}
 ?>
+
+<!-- this is the html part -->
+<main class="container mt-4">
+    <h2>Update Tasks #<?= htmlspecialchars($task['id']); ?></h2>
+
+    <?php if (!empty($error)): ?>
+        <p class="text-danger"><?= htmlspecialchars($error); ?></p>
+    <?php endif; ?>
+
+    <form method="post">
+        <h4 class="mt-3">Tasks Name</h4>
+
+        <label class="form-label">Task Name</label>
+        <input
+            type="text"
+            name="task_name"
+            class="form-control mb-3"
+            value="<?= htmlspecialchars($task['task_name']); ?>"
+            required>
+
+        <label class="form-label">Priority</label>
+       
+
+
+
+
+
+
+
+
+
+    </form>
+
+
+
+
+
+
+</main>
