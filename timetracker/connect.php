@@ -1,9 +1,9 @@
 <?php
 
-$host = "sql113.infinityfree.com"; //this is the host name
-$db = "if0_41209034_timetracker"; // this is the name of the database
-$user = "if0_41209034";  //this is the usernme
-$password = "JflgboSA62eKl";  // this is the password
+$host = "sql100.infinityfree.com"; //this is the host name
+$db = "if0_41723509_timetracker"; // this is the name of the database
+$user = "if0_41723509";  //this is the usernme
+$password = "Folley4ever";  // this is the password
 
 
 $dsn = "mysql:host=$host;dbname=$db"; //this points to the database
